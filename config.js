@@ -1,6 +1,6 @@
 let name = window.localStorage.getItem('name');
 
 export default {
-    api: 'http://192.168.1.158:3000',
+    api: 'http://api.stlukas.ru',
     name
 }

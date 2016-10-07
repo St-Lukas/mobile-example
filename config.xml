@@ -10,8 +10,10 @@
     <description>
         Пример гибридного приложения.
     </description>
+        
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
 
-
+    <access origin="*" />
 
     <author href="https://build.phonegap.com" email="support@phonegap.com">
         ХХХХХХХХ

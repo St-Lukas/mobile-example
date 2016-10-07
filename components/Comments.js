@@ -32,12 +32,13 @@ export default class Comments extends Component {
     }
 
     updateComments() {
-        fetch(`${config.api}/comments`)
+        fetch(`${config.api}/comments`, { credentials: 'include' })
             .then(comments => this.setState({ comments }))
     }
 
     addComment(name, text) {
         return fetch(`${config.api}/add-comment`, {
+            credentials: 'include',
             method: 'post',
             headers: {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"

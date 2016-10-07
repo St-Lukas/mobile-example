@@ -1,0 +1,54 @@
+{
+  "name": "votes-phonegap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify app.jsx > app.js",
+    "watch-build": "watchify app.jsx -o app.js --debug --verbose"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "material-ui": "^0.16.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-motion": "^0.4.5",
+    "react-swipeable-views": "^0.7.10",
+    "react-tap-event-plugin": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-syntax-jsx": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.16.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-es2017": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-runtime": "^6.11.6",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "browserify-jsx": "^1.0.0",
+    "watchify": "^3.7.0"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015",
+            "es2017",
+            "react"
+          ],
+          "plugins": [
+            "transform-runtime",
+            "transform-decorators-legacy",
+            "transform-class-properties"
+          ]
+        }
+      ]
+    ],
+    "sourceType": "module"
+  }
+}

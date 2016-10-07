@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextField, Divider, Card, CardHeader } from 'material-ui'
+import { TextField, Divider, Card, CardHeader, CircularProgress } from 'material-ui'
 import config from '../config'
 import moment from 'moment'
 import 'moment/locale/ru'
@@ -15,20 +15,11 @@ let interval;
 
 export default class Comments extends Component {
     state = {
-        comments: [{
-                id: 1,
-                name: '@ssav',
-                text: 'Вот такие дела!'
-            },
-            {
-                id: 2,
-                name: '@log1n',
-                text: 'Напиши гермиону!'
-            }]
+        comments: []
     }
 
     componentDidMount() {
-        interval = setInterval(this.updateComments.bind(this), 5000)
+        interval = setInterval(this.updateComments.bind(this), config.interval)
     }
 
     componentWillUnmount() {
@@ -55,6 +46,13 @@ export default class Comments extends Component {
     }
 
     render() {
+        if (this.state.comments && this.state.comments.length === 0) {
+            return (
+                <div style={{textAlign: 'center'}}>
+                    <CircularProgress size={60} thickness={7} />
+                </div>
+            )
+        }
         return (
             <div>
                 <TextField

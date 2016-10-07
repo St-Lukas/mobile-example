@@ -1,25 +1,25 @@
 import React from 'react'
 import VotesItem from './VotesItem.js'
 import config from '../config'
+import { CircularProgress } from 'material-ui'
+
+let interval;
 
 class VotesList extends React.Component {
     state = {
-        data: [
-            // {
-            //     id: 1,
-            //     person: {
-            //         name: 'Михаил Трошев',
-            //         position: 'Руководитель службы поисковых интерфейсов',
-            //         avatarUrl: "https://avatars.yandex.net/get-yaevents/1488780d5280b517a74341b323325d83/365x365"
-            //     },
-            //     title: 'Особенности работы распределенной команды',
-            //     description: 'Хорошие разработчики есть не только в Москве, и не все стремятся переехать в столицу. Я поделюсь собственным опытом построения большой слаженной команды разработчиков, распределенных по нескольким городам.',
-            //     votes: 12
-            // }
-        ]
+        data: []
     }
 
     componentDidMount() {
+        this.updateList();
+        interval = setInterval(() => this.updateList(), config.interval)
+    }
+
+    componentWillUnmount() {
+        clearInterval(interval);
+    }
+
+    updateList() {
         fetch(`${config.api}/list`, { credentials: 'include' })
             .then(res => {
                 return res.json();
@@ -42,6 +42,13 @@ class VotesList extends React.Component {
     }
 
     render() {
+        if (this.state.data && this.state.data.length === 0) {
+            return (
+                <div style={{textAlign: 'center'}}>
+                    <CircularProgress size={60} thickness={7} />
+                </div>
+            )
+        }
         return (
             <div className="test">
                 {

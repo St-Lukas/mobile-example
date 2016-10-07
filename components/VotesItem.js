@@ -15,7 +15,7 @@ const VotesItem = (props) => (
             { props.description }
         </CardText>
         <CardActions>
-            <FlatButton label={`Голосов: ${props.voteCount || '0'}`} />
+            <FlatButton onClick={() => props.onVote(props.id) } label={`Голосов: ${props.votes || '0'}`} />
         </CardActions>
     </Card>
 );

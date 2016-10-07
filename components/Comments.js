@@ -37,7 +37,7 @@ export default class Comments extends Component {
     }
 
     addComment(name, text) {
-        return fetch(`${config.api}/addComments`, {
+        return fetch(`${config.api}/add-comment`, {
             method: 'post',
             headers: {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
@@ -53,6 +53,7 @@ export default class Comments extends Component {
                     fullWidth={true}
                     hintText="Текст комментария"
                     onKeyDown={(e) => {
+                        console.log(e.keyCode, e.which);
                         if (e.keyCode === 13) {
                             this.addComment(config.name, e.target.value)
                                 .then(() => e.target.value = '')

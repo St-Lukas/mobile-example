@@ -5,23 +5,26 @@ import config from '../config'
 class VotesList extends React.Component {
     state = {
         data: [
-            {
-                id: 1,
-                person: {
-                    name: 'Михаил Трошев',
-                    position: 'Руководитель службы поисковых интерфейсов',
-                    avatarUrl: "https://avatars.yandex.net/get-yaevents/1488780d5280b517a74341b323325d83/365x365"
-                },
-                title: 'Особенности работы распределенной команды',
-                description: 'Хорошие разработчики есть не только в Москве, и не все стремятся переехать в столицу. Я поделюсь собственным опытом построения большой слаженной команды разработчиков, распределенных по нескольким городам.',
-                votes: 12
-            }
+            // {
+            //     id: 1,
+            //     person: {
+            //         name: 'Михаил Трошев',
+            //         position: 'Руководитель службы поисковых интерфейсов',
+            //         avatarUrl: "https://avatars.yandex.net/get-yaevents/1488780d5280b517a74341b323325d83/365x365"
+            //     },
+            //     title: 'Особенности работы распределенной команды',
+            //     description: 'Хорошие разработчики есть не только в Москве, и не все стремятся переехать в столицу. Я поделюсь собственным опытом построения большой слаженной команды разработчиков, распределенных по нескольким городам.',
+            //     votes: 12
+            // }
         ]
     }
 
-    compodonentDidMount() {
-        // fetch(`${config.api}/list`)
-        //     .then(data => this.setState({ data }))
+    componentDidMount() {
+        fetch(`${config.api}/list`)
+            .then(res => {
+                return res.json();
+            })
+            .then(data => this.setState({ data }))
     }
 
     voteBtnClick(id) {
@@ -31,7 +34,10 @@ class VotesList extends React.Component {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
             },
             body: `id=${id}`
-        }).then(data => this.setState({ data }))
+        }).then(res => {
+            return res.json();
+        })
+        .then(data => this.setState({ data }))
     }
 
     render() {
@@ -39,7 +45,7 @@ class VotesList extends React.Component {
             <div className="test">
                 {
                     this.state.data.map(item => (
-                        <VotesItem key={item.id} {...item} />
+                        <VotesItem key={item.id} onVote={(id) => this.voteBtnClick(id)} {...item} />
                     ))
                 }
 

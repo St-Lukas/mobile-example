@@ -20,7 +20,7 @@ class VotesList extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`${config.api}/list`)
+        fetch(`${config.api}/list`, { credentials: 'include' })
             .then(res => {
                 return res.json();
             })
@@ -29,6 +29,7 @@ class VotesList extends React.Component {
 
     voteBtnClick(id) {
         fetch(`${config.api}/vote`, {
+            credentials: 'include',
             method: 'post',
             headers: {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"

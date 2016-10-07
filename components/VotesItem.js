@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 const VotesItem = (props) => (
     <Card>
@@ -15,7 +15,11 @@ const VotesItem = (props) => (
             { props.description }
         </CardText>
         <CardActions>
-            <FlatButton onClick={() => props.onVote(props.id) } label={`Голосов: ${props.votes || '0'}`} />
+            <RaisedButton
+                primary={true}
+                onClick={() => props.onVote(props.id) }
+                label={`Голосов: ${props.votes || '0'}`}
+            />
         </CardActions>
     </Card>
 );

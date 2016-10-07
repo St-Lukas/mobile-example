@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TextField, Divider, Card, CardHeader, CircularProgress } from 'material-ui'
+import { TextField, Card, CardHeader, CircularProgress, Subheader } from 'material-ui'
 import config from '../config'
 import moment from 'moment'
 import 'moment/locale/ru'
@@ -55,10 +55,10 @@ export default class Comments extends Component {
         }
         return (
             <div>
+                <Subheader style={{paddingLeft: 0, lineHeight: '24px'}}>Комментарий</Subheader>
                 <TextField
                     fullWidth={true}
                     hintText="Текст комментария"
-                    hintStyle={{opacity: 1}}
                     onKeyDown={(e) => {
                         if (e.keyCode === 13) {
                             this.addComment(config.name, e.target.value);

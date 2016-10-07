@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { TextField, Divider, Card, CardHeader } from 'material-ui'
 import config from '../config'
+import moment from 'moment'
+import 'moment/locale/ru'
+
+// moment.locale('ru');
 
 let paperStyle = {
     width: '100%',
@@ -24,7 +28,7 @@ export default class Comments extends Component {
     }
 
     componentDidMount() {
-        // interval = setInterval(this.updateComments.bind(this), 5000)
+        interval = setInterval(this.updateComments.bind(this), 5000)
     }
 
     componentWillUnmount() {
@@ -33,6 +37,7 @@ export default class Comments extends Component {
 
     updateComments() {
         fetch(`${config.api}/comments`, { credentials: 'include' })
+            .then(res => res.json())
             .then(comments => this.setState({ comments }))
     }
 
@@ -44,7 +49,9 @@ export default class Comments extends Component {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
             },
             body: `name=${name}&text=${text}`
-        }).then(comments => this.setState({ comments }))
+        })
+        .then(res => res.json())
+        .then(comments => this.setState({ comments }))
     }
 
     render() {
@@ -54,23 +61,25 @@ export default class Comments extends Component {
                     fullWidth={true}
                     hintText="Текст комментария"
                     onKeyDown={(e) => {
-                        console.log(e.keyCode, e.which);
                         if (e.keyCode === 13) {
-                            this.addComment(config.name, e.target.value)
-                                .then(() => e.target.value = '')
+                            this.addComment(config.name, e.target.value);
+                            e.target.value = ''
                         }
 
                     }}
                 />
                 {
-                    this.state.comments.map(comment => (
-                        <Card key={ comment.id }>
-                            <CardHeader
-                                title={ comment.name }
-                                subtitle={ comment.text }
-                            />
-                        </Card>
-                    ))
+                    this.state.comments
+                        .map(comment => (
+                            <Card key={ comment.id }>
+                                <CardHeader
+                                    title={ comment.text }
+                                    subtitle={ `${comment.name} - ${moment(comment.date).fromNow()}` }
+                                    style={{paddingRight: 0}}
+                                    subtitleStyle={{fontSize: '12px', marginTop: '5px'}}
+                                />
+                            </Card>
+                        ))
                 }
 
             </div>

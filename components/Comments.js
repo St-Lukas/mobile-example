@@ -58,6 +58,7 @@ export default class Comments extends Component {
                 <TextField
                     fullWidth={true}
                     hintText="Текст комментария"
+                    hintStyle={{opacity: 1}}
                     onKeyDown={(e) => {
                         if (e.keyCode === 13) {
                             this.addComment(config.name, e.target.value);

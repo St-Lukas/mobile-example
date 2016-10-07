@@ -10,6 +10,8 @@
     <description>
         Пример гибридного приложения.
     </description>
+        
+    <gap:plugin name="cordova-plugin-whitelist" source="npm" />
 
     <access origin="*" />
 
